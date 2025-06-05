@@ -1,10 +1,46 @@
 "use client";
 
-import { useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 
 export default function Home() {
   const [users, setUsers] = useState("");
   const [scope, setScope] = useState("");
+  const [dividerPosition, setDividerPosition] = useState(50); // Percentage from left
+  const [isDragging, setIsDragging] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const handleMouseDown = useCallback((e: React.MouseEvent) => {
+    setIsDragging(true);
+    e.preventDefault();
+  }, []);
+
+  const handleMouseMove = useCallback(
+    (e: MouseEvent) => {
+      if (!isDragging || !containerRef.current) return;
+
+      const rect = containerRef.current.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const percentage = Math.max(10, Math.min(90, (x / rect.width) * 100));
+      setDividerPosition(percentage);
+    },
+    [isDragging]
+  );
+
+  const handleMouseUp = useCallback(() => {
+    setIsDragging(false);
+  }, []);
+
+  // Add event listeners for mouse move and up
+  React.useEffect(() => {
+    if (isDragging) {
+      document.addEventListener("mousemove", handleMouseMove);
+      document.addEventListener("mouseup", handleMouseUp);
+      return () => {
+        document.removeEventListener("mousemove", handleMouseMove);
+        document.removeEventListener("mouseup", handleMouseUp);
+      };
+    }
+  }, [isDragging, handleMouseMove, handleMouseUp]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#FCF8F7] to-white">
@@ -32,79 +68,126 @@ export default function Home() {
           Before & After
         </h2>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center mb-16">
-          {/* Traditional Portal */}
-          <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 relative">
-            <h3 className="text-2xl font-semibold text-[#302A2F] mb-6">
-              Traditional Client Portal
-            </h3>
-            <div className="space-y-4">
-              <div className="h-4 bg-gray-200 rounded-full"></div>
-              <div className="h-4 bg-gray-200 rounded-full w-3/4"></div>
-              <div className="h-4 bg-gray-200 rounded-full w-1/2"></div>
-              <div className="h-4 bg-gray-200 rounded-full w-2/3"></div>
+        {/* Interactive Before/After Slider */}
+        <div className="mb-16">
+          <div
+            ref={containerRef}
+            className="relative h-80 bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden cursor-col-resize"
+            style={{ userSelect: "none" }}
+          >
+            {/* Traditional Portal (Left Side) */}
+            <div
+              className="absolute inset-0 bg-white p-8"
+              style={{ clipPath: `inset(0 ${100 - dividerPosition}% 0 0)` }}
+            >
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-2xl font-semibold text-[#302A2F]">
+                  Traditional Client Portal
+                </h3>
+                <div className="text-red-500">
+                  <svg
+                    className="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div className="space-y-4">
+                <div className="h-4 bg-gray-200 rounded-full"></div>
+                <div className="h-4 bg-gray-200 rounded-full w-3/4"></div>
+                <div className="h-4 bg-gray-200 rounded-full w-1/2"></div>
+                <div className="h-4 bg-gray-200 rounded-full w-2/3"></div>
+                <div className="h-4 bg-gray-200 rounded-full w-4/5"></div>
+              </div>
+              <div className="mt-8 text-sm text-[#736F72]">
+                • Manual processes
+                <br />
+                • Limited customization
+                <br />
+                • Static content
+                <br />• Basic functionality
+              </div>
             </div>
-            <div className="absolute top-4 right-4 text-red-500">
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </div>
-          </div>
 
-          {/* Arrow */}
-          <div className="flex justify-center lg:justify-start">
-            <div className="bg-[#5E43FF] text-white p-4 rounded-full">
-              <svg
-                className="w-8 h-8"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M13 7l5 5m0 0l-5 5m5-5H6"
-                />
-              </svg>
+            {/* AI-Enhanced Portal (Right Side) */}
+            <div
+              className="absolute inset-0 bg-gradient-to-br from-[#B9FFB7]/20 to-[#5E43FF]/20 p-8"
+              style={{ clipPath: `inset(0 0 0 ${dividerPosition}%)` }}
+            >
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-2xl font-semibold text-[#302A2F]">
+                  AI-Enhanced Portal
+                </h3>
+                <div className="text-green-500">
+                  <svg
+                    className="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div className="space-y-4">
+                <div className="h-4 bg-gradient-to-r from-[#B9FFB7] to-[#5E43FF] rounded-full"></div>
+                <div className="h-4 bg-gradient-to-r from-[#B9FFB7] to-[#5E43FF] rounded-full w-4/5"></div>
+                <div className="h-4 bg-gradient-to-r from-[#B9FFB7] to-[#5E43FF] rounded-full w-3/5"></div>
+                <div className="h-4 bg-gradient-to-r from-[#B9FFB7] to-[#5E43FF] rounded-full w-3/4"></div>
+                <div className="h-4 bg-gradient-to-r from-[#B9FFB7] to-[#5E43FF] rounded-full w-5/6"></div>
+              </div>
+              <div className="mt-8 text-sm text-[#302A2F] font-medium">
+                • AI-powered automation
+                <br />
+                • Dynamic personalization
+                <br />
+                • Smart content delivery
+                <br />• Predictive insights
+              </div>
             </div>
-          </div>
 
-          {/* AI-Enhanced Portal */}
-          <div className="bg-gradient-to-br from-[#B9FFB7]/20 to-[#5E43FF]/20 rounded-2xl shadow-lg border border-[#B9FFB7]/30 p-8 relative">
-            <h3 className="text-2xl font-semibold text-[#302A2F] mb-6">
-              AI-Enhanced Portal
-            </h3>
-            <div className="space-y-4">
-              <div className="h-4 bg-gradient-to-r from-[#B9FFB7] to-[#5E43FF] rounded-full"></div>
-              <div className="h-4 bg-gradient-to-r from-[#B9FFB7] to-[#5E43FF] rounded-full w-4/5"></div>
-              <div className="h-4 bg-gradient-to-r from-[#B9FFB7] to-[#5E43FF] rounded-full w-3/5"></div>
-              <div className="h-4 bg-gradient-to-r from-[#B9FFB7] to-[#5E43FF] rounded-full w-3/4"></div>
+            {/* Draggable Divider */}
+            <div
+              className="absolute top-0 bottom-0 w-1 bg-[#5E43FF] cursor-col-resize z-10 shadow-lg"
+              style={{
+                left: `${dividerPosition}%`,
+                transform: "translateX(-50%)",
+              }}
+              onMouseDown={handleMouseDown}
+            >
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-[#5E43FF] rounded-full shadow-lg flex items-center justify-center">
+                <svg
+                  className="w-4 h-4 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M8 9l4-4 4 4M8 15l4 4 4-4"
+                  />
+                </svg>
+              </div>
             </div>
-            <div className="absolute top-4 right-4 text-green-500">
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M5 13l4 4L19 7"
-                />
-              </svg>
+
+            {/* Drag instruction */}
+            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-xs text-[#736F72] bg-white/80 px-3 py-1 rounded-full">
+              Drag to compare
             </div>
           </div>
         </div>
