@@ -48,6 +48,44 @@ export default function Home() {
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-[#B9FFB7]/10 to-[#5E43FF]/10"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16 text-center">
+          {/* Logo */}
+          <div className="mb-12">
+            <svg
+              width="200"
+              height="120"
+              viewBox="0 0 200 120"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="mx-auto"
+            >
+              {/* fresk. text */}
+              <text
+                x="10"
+                y="45"
+                fontFamily="Inter, system-ui, sans-serif"
+                fontSize="42"
+                fontWeight="400"
+                fill="#302A2F"
+                letterSpacing="-0.02em"
+              >
+                fresk.
+              </text>
+
+              {/* digital text */}
+              <text
+                x="10"
+                y="85"
+                fontFamily="Inter, system-ui, sans-serif"
+                fontSize="42"
+                fontWeight="400"
+                fill="#302A2F"
+                letterSpacing="-0.02em"
+              >
+                digital
+              </text>
+            </svg>
+          </div>
+
           <h1 className="text-5xl md:text-6xl font-bold text-[#120B11] mb-6 leading-tight">
             Rethink Client Portals with AI
           </h1>

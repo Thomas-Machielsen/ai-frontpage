@@ -1,4 +1,4 @@
-import "../palette.css";
+// import "../palette.css"
 
 export default function Home() {
   return (
