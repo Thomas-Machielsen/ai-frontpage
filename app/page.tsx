@@ -187,7 +187,7 @@ export default function Home() {
                 <div className="h-4 bg-gradient-to-r from-[#B9FFB7] to-[#5E43FF] rounded-full w-3/4"></div>
                 <div className="h-4 bg-gradient-to-r from-[#B9FFB7] to-[#5E43FF] rounded-full w-5/6"></div>
               </div>
-              <div className="mt-8 text-sm text-[#302A2F] font-medium">
+              <div className="mt-8 text-sm text-[#302A2F] font-medium text-right">
                 • AI-powered automation
                 <br />
                 • Dynamic personalization
