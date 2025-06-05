@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import React, { useCallback, useRef, useState } from "react";
 
 export default function Home() {
@@ -44,6 +45,53 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#FCF8F7] to-white">
+      {/* Navigation Bar */}
+      <nav className="relative z-50 bg-white/80 backdrop-blur-sm border-b border-gray-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            {/* Logo */}
+            <div className="flex-shrink-0">
+              <svg
+                width="120"
+                height="40"
+                viewBox="0 0 120 40"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-8"
+              >
+                <text
+                  x="0"
+                  y="28"
+                  fontFamily="Inter, system-ui, sans-serif"
+                  fontSize="24"
+                  fontWeight="400"
+                  fill="#302A2F"
+                  letterSpacing="-0.02em"
+                >
+                  fresk.digital
+                </text>
+              </svg>
+            </div>
+
+            {/* Navigation Links */}
+            <div className="flex items-center space-x-8">
+              <Link
+                href="/first-try"
+                className="text-[#302A2F] hover:text-[#5E43FF] font-medium transition-colors duration-200"
+              >
+                first-try
+              </Link>
+              <Link
+                href="/pallette"
+                className="text-[#302A2F] hover:text-[#5E43FF] font-medium transition-colors duration-200"
+              >
+                pallette
+              </Link>
+            </div>
+          </div>
+        </div>
+      </nav>
+
       {/* Hero Section */}
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-[#B9FFB7]/10 to-[#5E43FF]/10"></div>
