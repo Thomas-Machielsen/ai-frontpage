@@ -20,7 +20,7 @@ export default function Home() {
 
       const rect = containerRef.current.getBoundingClientRect();
       const x = e.clientX - rect.left;
-      const percentage = Math.max(10, Math.min(90, (x / rect.width) * 100));
+      const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
       setDividerPosition(percentage);
     },
     [isDragging]
@@ -110,7 +110,7 @@ export default function Home() {
         <div className="mb-16">
           <div
             ref={containerRef}
-            className="relative h-80 bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden cursor-col-resize"
+            className="relative h-96 bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden cursor-col-resize"
             style={{ userSelect: "none" }}
           >
             {/* Traditional Portal (Left Side) */}
@@ -120,7 +120,7 @@ export default function Home() {
             >
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-2xl font-semibold text-[#302A2F]">
-                  Traditional Client Portal
+                  Traditional Client Portal (Before)
                 </h3>
                 <div className="text-red-500">
                   <svg
@@ -162,7 +162,7 @@ export default function Home() {
             >
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-2xl font-semibold text-[#302A2F]">
-                  AI-Enhanced Portal
+                  AI-Enhanced Portal (After)
                 </h3>
                 <div className="text-green-500">
                   <svg
@@ -255,7 +255,7 @@ export default function Home() {
               </svg>
             </div>
             <h4 className="text-xl font-semibold text-[#302A2F] mb-4 relative z-10">
-              Client A
+              Traditional Client Portal
             </h4>
             <div className="space-y-3 relative z-10">
               <div className="h-3 bg-gray-200 rounded-full"></div>
@@ -267,7 +267,7 @@ export default function Home() {
           {/* Client B */}
           <div className="bg-white rounded-xl shadow-md border border-gray-100 p-6">
             <h4 className="text-xl font-semibold text-[#302A2F] mb-4">
-              Client B
+              Hybrid Client Portal
             </h4>
             <div className="space-y-3">
               <div className="h-3 bg-[#76A375] rounded-full"></div>
@@ -283,7 +283,7 @@ export default function Home() {
               +37%
             </div>
             <h4 className="text-xl font-semibold text-[#302A2F] mb-4">
-              Client C
+              AI-Enhanced Client Portal
             </h4>
             <div className="space-y-3">
               <div className="h-3 bg-gradient-to-r from-[#B9FFB7] to-[#5E43FF] rounded-full"></div>
