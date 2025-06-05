@@ -3,6 +3,21 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  /* Primary Colors */
+  --color-green: #b9ffb7;
+  --color-green-dimmed: #76a375;
+  --color-green-bright: #d6e9c3;
+  --color-orange: #ff7535;
+  --color-blue: #5e43ff;
+  --color-blue-dimmed: #4430b8;
+
+  /* Neutral Tones */
+  --color-white: #ffffff;
+  --color-snow: #fcf8f7;
+  --color-sonic-silver: #736f72;
+  --color-raisin-black: #302a2f;
+  --color-xiketic: #120b11;
 }
 
 @theme inline {
@@ -10,6 +25,18 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* Fresk Brand Colors for Tailwind */
+  --color-fresk-green: var(--color-green);
+  --color-fresk-green-dimmed: var(--color-green-dimmed);
+  --color-fresk-green-bright: var(--color-green-bright);
+  --color-fresk-orange: var(--color-orange);
+  --color-fresk-blue: var(--color-blue);
+  --color-fresk-blue-dimmed: var(--color-blue-dimmed);
+  --color-fresk-snow: var(--color-snow);
+  --color-fresk-sonic-silver: var(--color-sonic-silver);
+  --color-fresk-raisin-black: var(--color-raisin-black);
+  --color-fresk-xiketic: var(--color-xiketic);
 }
 
 @media (prefers-color-scheme: dark) {
